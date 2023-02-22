@@ -64,7 +64,7 @@ jobs:
   sandbox:
     runs-on: ubuntu-latest
 
-    needs: pre_release
+    needs: docker_distro
 
     if: ${{ github.ref == 'refs/heads/working' }}
 
