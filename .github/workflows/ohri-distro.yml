@@ -66,8 +66,6 @@ jobs:
 
     needs: docker_distro
 
-    if: ${{ github.ref == 'refs/heads/working' }}
-
     steps:
       # Update the Microfrontends to reflect what we have in the Working branch
       - uses: garygrossgarten/github-action-ssh@release
