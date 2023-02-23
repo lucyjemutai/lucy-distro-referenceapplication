@@ -46,7 +46,7 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend:ci
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend:pre.${{ github.run_number }}
           load: true
           build-args: |
             USERNAME=${{ github.actor }}
@@ -59,7 +59,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend:ci
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend:pre.${{ github.run_number }}
 
   sandbox:
     runs-on: ubuntu-latest
@@ -67,11 +67,11 @@ jobs:
     needs: docker_distro
 
     steps:
-      # Update the Microfrontends to reflect what we have in the Working branch
+      #
       - uses: garygrossgarten/github-action-ssh@release
         name: Run the Update MicroFronEnd Script
         with:
-          command: cd /usr/share/tomcat/distro/sandbox && docker run ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend:ci
+          command: cd /usr/share/tomcat/distro/sandbox && docker run ${{ secrets.DOCKERHUB_USERNAME }}/openmrs-esm-ohri-frontend
           host: ${{ secrets.HISTAC_HOST }}
           username: ${{ secrets.HISTAC_USERNAME }}
           privateKey: ${{ secrets.HISTAC_KEY}}
