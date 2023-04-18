@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   gateway:
-    image: openmrs/openmrs-reference-ohri-3-gateway:2.5.8
+    image: histacoohri/o3-reference-ohri-gateway:2.5.9
     depends_on:
       - frontend
       - backend
@@ -10,19 +10,22 @@ services:
       - "80:80"
 
   frontend:
-    image: histacoohri/o3-reference-ohri-frontend:1.0.2
+    image: histacoohri/o3-reference-ohri-frontend:1.0.3
     environment:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
-      SPA_CONFIG_URLS:
+      SPA_CONFIG_URLS: /openmrs/spa/ohri-config.json
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
       timeout: 5s
     depends_on:
       - backend
+    # OHRI customizations
+    volumes:
+      - ./frontend/ohri-config.json:/usr/share/nginx/html/ohri-config.json
 
   backend:
-    image: openmrs/o3-reference-ohri-backend:2.5.9
+    image: histacoohri/o3-reference-ohri-backend:2.5.9
     depends_on:
       - db
     environment:
