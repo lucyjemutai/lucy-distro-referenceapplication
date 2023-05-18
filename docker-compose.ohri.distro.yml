@@ -3,7 +3,7 @@ version: "3.7"
 services:
   # Proxy
   proxy:
-    image: histacoohri/docker_proxy
+    image: histacoohri/ohri-distro_proxy
     depends_on:
       - frontend
       - openmrs
@@ -12,7 +12,7 @@ services:
 
   # Frontend
   frontend:
-    image: histacoohri/ohri-frontend:1.0.2-pre.2226
+    image: histacoohri/ohri-distro-frontend:latest
     environment:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
@@ -23,7 +23,7 @@ services:
 
   # OpenMRS:
   openmrs:
-    image: histacoohri/ohri-backed-3-x:2.5.8
+    image: histacoohri/ohri-distro-backend-2_6:latest
     depends_on:
       - db
     environment:
