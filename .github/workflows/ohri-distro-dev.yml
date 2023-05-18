@@ -59,8 +59,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ohri-distro-backend-2_6:latest,${{ secrets.DOCKERHUB_USERNAME }}/ohri-distro-backend-2_6:ci_${{ github.run_number }}
-          # tags: ${{ steps.meta.outputs.tags }}
-          # labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=inline,ref=user/app:buildcache
           cache-to: type=inline,ref=user/app:buildcache,mode=max
 

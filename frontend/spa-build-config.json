@@ -8,7 +8,7 @@
     "@ohri/openmrs-esm-ohri-pmtct": "next",
     "@openmrs/esm-appointments-app": "next",
     "@openmrs/esm-dispensing-app": "next",
-    "@openmrs/esm-form-builder-app": "1.0.1",
+    "@openmrs/esm-form-builder-app": "next",
     "@openmrs/esm-home-app": "next",
     "@openmrs/esm-implementer-tools-app": "next",
     "@openmrs/esm-login-app": "next",
