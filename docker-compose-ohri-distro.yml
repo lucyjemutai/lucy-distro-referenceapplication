@@ -40,7 +40,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
       timeout: 10s
     volumes:
-      - openmrs-data:/openmrs/data
+      - ohri-openmrs-data:/openmrs/data
 
   # MariaDB
   db:
@@ -57,8 +57,8 @@ services:
       MYSQL_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-openmrs}
     volumes:
-      - db-data:/var/lib/mysql
+      - ohri-db-data:/var/lib/mysql
 
 volumes:
-  openmrs-data: ~
-  db-data: ~
+  ohri-openmrs-data: ~
+  ohri-db-data: ~
