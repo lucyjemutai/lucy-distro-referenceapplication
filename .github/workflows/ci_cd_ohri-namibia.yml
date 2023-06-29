@@ -37,7 +37,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-  docker_distro_backend:
+  docker_namibia_distro_backend:
     runs-on: ubuntu-latest
     needs: docker_setup
 
@@ -65,7 +65,7 @@ jobs:
           cache-from: type=inline,ref=user/app:buildcache
           cache-to: type=inline,ref=user/app:buildcache,mode=max
 
-  docker_distro_frontend:
+  docker_namibia_distro_frontend:
     runs-on: ubuntu-latest
     needs: docker_setup
 
@@ -94,7 +94,7 @@ jobs:
           cache-from: type=inline,ref=user/app:buildcache
           cache-to: type=inline,ref=user/app:buildcache,mode=max
 
-  docker_distro_gateway:
+  docker_namibia_distro_gateway:
     runs-on: ubuntu-latest
     needs: docker_setup
 
