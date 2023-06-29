@@ -49,6 +49,7 @@
     <ordertemplates.version>1.0.2</ordertemplates.version>
     <!-- this is required for flasg and taks-->
     <patientflags.version>3.0.6-SNAPSHOT</patientflags.version>
+    
   </properties>
 
   <dependencies>

@@ -12,17 +12,20 @@
   "@openmrs/esm-patient-search-app": "4.5.1-pre.1683",
   "@openmrs/esm-patient-list-app": "4.5.1-pre.1683",
   "@openmrs/esm-patient-registration-app": "4.5.1-pre.1683", 
-  "@openmrs/esm-form-builder-app": "1.2.1-pre.436",  
+  "@openmrs/esm-form-builder-app": "1.2.1-pre.436", 
+
 
   "@ohri/openmrs-esm-ohri-core-app":"next",
   "@ohri/openmrs-esm-ohri-form-render-app":"next",
   "@ohri/openmrs-esm-ohri-pmtct":"next",
   "@ohri/esm-namibia-emr-app": "next"
-  
-  }
+
+  },
+
   "spaPath": "$SPA_PATH",
   "apiUrl": "$API_URL",
   "configUrls": ["$SPA_CONFIG_URLS"],
   "defaultLocale": "$SPA_DEFAULT_LOCALE",
   "importmap": "$SPA_PATH/importmap.json"
+  
 }
