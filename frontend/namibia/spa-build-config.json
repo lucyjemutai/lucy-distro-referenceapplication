@@ -1,0 +1,26 @@
+{
+    "frontendModules":{
+      "@openmrs/esm-login-app": "4.5.1-pre.804",
+      "@openmrs/esm-primary-navigation-app": "4.5.1-pre.804",
+      "@openmrs/esm-implementer-tools-app": "4.5.1-pre.804",
+      "@openmrs/esm-devtools-app": "4.5.1-pre.804",
+      "@openmrs/esm-home-app": "4.2.1-pre.229",   
+      "@openmrs/esm-patient-banner-app": "4.6.1-pre.1773",  
+      "@openmrs/esm-patient-forms-app": "4.6.1-pre.1773", 
+      "@openmrs/esm-patient-test-results-app": "4.6.1-pre.1773",
+      "@openmrs/esm-patient-chart-app": "4.6.1-pre.1773",
+      "@openmrs/esm-patient-search-app": "4.5.1-pre.1683",
+      "@openmrs/esm-patient-list-app": "4.5.1-pre.1683",
+      "@openmrs/esm-patient-registration-app": "4.5.1-pre.1683", 
+      "@openmrs/esm-form-builder-app": "1.2.1-pre.436",  
+ 
+      "@ohri/openmrs-esm-ohri-core-app":"next",
+      "@ohri/openmrs-esm-ohri-form-render-app":"next",
+      "@ohri/openmrs-esm-ohri-pmtct":"next",
+      "@ohri/esm-namibia-emr-app": "next"
+    },
+  "spaPath": "$SPA_PATH",
+  "apiUrl": "$API_URL",
+  "configUrls": ["$SPA_CONFIG_URLS"],
+  "importmap": "$SPA_PATH/importmap.json"
+}
