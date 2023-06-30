@@ -1,15 +1,11 @@
 name: OHRI Nambia Distro Container
 
 on:
-  push:
-    branches:
-      - "*"
-    # Publish semver tags as releases.
   pull_request:
     types: [opened, synchronize, closed]
-  release:
-    types:
-      - created
+  push:
+      branches-ignore: [main, 2.x, 2.3.x, 2.6.x]
+    
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
