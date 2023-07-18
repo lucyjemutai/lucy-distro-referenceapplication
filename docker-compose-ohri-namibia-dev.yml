@@ -7,8 +7,7 @@ services:
       - frontend
       - backend
     ports:
-      - "8083:80"
-        # - "8083:8083"
+      - "80:80"
 
   frontend:
     image: histacoohri/ohri-namibia-dev-frontend:next
@@ -21,9 +20,6 @@ services:
       timeout: 10s
     depends_on:
       - backend
-    # OHRI customizations
-    #volumes:
-    #  - ./frontend/ohri-config.json:/usr/share/nginx/html/ohri-config.json
 
   backend:
     image: histacoohri/ohri-namibia-dev-backend-2_6:next
@@ -39,7 +35,7 @@ services:
       OMRS_CONFIG_CONNECTION_PASSWORD: ${OPENMRS_DB_PASSWORD:-openmrs}
       OMRS_JAVA_SERVER_OPTS: "-Dfile.encoding='UTF-8' -server -Xms1024m -Xmx6144m -Djava.security.egd='file:/dev/./urandom' -Djava.awt.headless='true' -Djava.awt.headlesslib='true'"
     healthcheck:
-      test: ['CMD','true']
+      test: ["CMD", "true"]
       #test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
       #timeout: 10s
     volumes:
@@ -65,9 +61,3 @@ services:
 volumes:
   ohri-openmrs-data: ~
   ohri-db-data: ~
-
-
-networks:
-  default:
-    external: true
-    name: ohri
