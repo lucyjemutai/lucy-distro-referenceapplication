@@ -1,9 +1,12 @@
-# OpenMRS 3.0 Reference Application
+# OHRI - O3.0 Distros
 
-This project holds the build configuration for the OpenMRS 3.0 reference application, found on
-https://dev3.openmrs.org and https://o3.openmrs.org.
+This project holds the build configuration for the OHRI 3 Distros reference application
 
 ## Quick start
+
+```
+git clone -b ohri-distros https://github.com/UCSF-IGHS/openmrs-distro-referenceapplication.git
+```
 
 ### Update the distribution and prepare the run
 
