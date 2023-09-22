@@ -19,7 +19,10 @@
         ]
       }
     },
-    "notesConceptUuids": ["161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "437d1e25-e7ab-481c-aabc-01f21c6cdef1"]
+    "notesConceptUuids": ["161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "437d1e25-e7ab-481c-aabc-01f21c6cdef1"],
+    "logo": {
+      "src": "ohri_logo_dark.svg"
+    }
   },
   "@openmrs/esm-patient-banner-app": {
     "extensionSlots": {
@@ -40,11 +43,6 @@
         "add": [
           "clinical-appointments-dashboard"
         ]
-      },
-      "ohri-dashboard-dispensing-slot": {
-        "add": [
-          "dispensing-dashboard"
-        ]
       }
     }
   },
@@ -60,9 +58,28 @@
           "dispensing-link"
         ]
       }
+    },
+    "logo": {
+      "src": "ohri_logo_dark.svg"
     }
   },
   "@openmrs/esm-dispensing-app": {
     "appName": "Dispensing"
+  },
+  "@openmrs/esm-login-app": {
+    "logo": {
+      "src": "ohri_logo_light.svg"
+    }
+  },
+  "@ohri/openmrs-esm-ohri-pmtct": {
+    "identifiers": {
+      "preferredIdentifierSource": "8549f706-7e85-4c1d-9424-217d50a2988b"
+    },
+    "encounterTypes": {
+      "antenatal": "677d1a80-dbbe-4399-be34-aa7f54f11405",
+      "laborAndDelivery": "6dc5308d-27c9-4d49-b16f-2c5e3c759757",
+      "infantPostnatal": "af1f1b24-d2e8-4282-b308-0bf79b365584",
+      "motherPostnatal": "269bcc7f-04f8-4ddc-883d-7a3a0d569aad"
+    }
   }
 }

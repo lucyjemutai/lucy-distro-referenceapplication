@@ -826,7 +826,7 @@
                   }
                 }
               ],
-              "id": "patientIdentifier"
+              "id": "currentArtRegimen"
             },
             {
               "label": "Transfer Documents",
@@ -976,7 +976,7 @@
               "label": "Test Location",
               "type": "obs",
               "questionOptions": {
-                "rendering": "text",
+                "rendering": "select",
                 "concept": "161549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {

@@ -1835,8 +1835,8 @@
               "label": "Gestational age (weeks)",
               "type": "obs",
               "questionOptions": {
-                "rendering": "text",
-                "concept": ""
+                "rendering": "number",
+                "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "behaviours": [
                 {
@@ -6779,6 +6779,36 @@
                     ]
                   },
                   {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other (specify)",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH-Malawi",
+                        "value": "6408"
+                      },
+                      {
+                        "type": "org.openmrs.module.mdrtb",
+                        "value": "OTHER"
+                      },
+                      {
+                        "type": "SNOMED-MVP",
+                        "value": "56221000105001"
+                      },
+                      {
+                        "type": "PIH",
+                        "value": "5622"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "5622"
+                      },
+                      {
+                        "type": "SNOMED-CT",
+                        "value": "74964007"
+                      }
+                    ]
+                  },
+                  {
                     "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "None",
                     "conceptMappings": [
@@ -6846,14 +6876,14 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "textarea",
-                "concept": "Nutritional plan (text)",
+                "concept": "163189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rows": ""
               },
               "behaviours": [
                 {
                   "intent": "*",
                   "hide": {
-                    "hideWhenExpression": "nutritionalStatus === '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || nutritionalStatus === '1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || nutritionalInterventions !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "!includes(nutritionalSupport, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 }
               ],
@@ -9067,6 +9097,120 @@
               "id": "attendingClinicianName"
             }
           ]
+        },
+        {
+          "label": "Lab Results",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "CD4 Lab Results",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "toggle",
+                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "toggleOptions": {
+                  "labelTrue": "Yes",
+                  "labelFalse": "No"
+                },
+                "conceptMappings": [
+                  {
+                    "type": "OCT",
+                    "value": "LabOrdered"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "cf82933b-3f3f-45e7-a5ab-5d31aaee3da3",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "488b58ff-64f5-4f8a-8979-fa79940b1594",
+                    "label": "No",
+                    "conceptMappings": []
+                  }
+                ]
+              },
+              "id": "cd4LabResultsToggle",
+              "behaviours": [
+                {
+                  "intent": "*",
+                  "required": "false"
+                }
+              ]
+            },
+            {
+              "label": "Viral Lab Results",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "toggle",
+                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "toggleOptions": {
+                  "labelTrue": "Yes",
+                  "labelFalse": "No"
+                },
+                "conceptMappings": [
+                  {
+                    "type": "OCT",
+                    "value": "LabOrdered"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "cf82933b-3f3f-45e7-a5ab-5d31aaee3da3",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "488b58ff-64f5-4f8a-8979-fa79940b1594",
+                    "label": "No",
+                    "conceptMappings": []
+                  }
+                ]
+              },
+              "id": "viralLabResultsToggle",
+              "behaviours": [
+                {
+                  "intent": "*",
+                  "required": "false"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -9084,7 +9228,15 @@
             "readonly": "false"
           }
         ]
-      }
+      },
+      "behaviours": [
+        {
+          "intent": "*",
+                      "hide": {
+            "hideWhenExpression": "cd4LabResultsToggle == '488b58ff-64f5-4f8a-8979-fa79940b1594'"
+          }
+        }
+      ]
     },
     {
       "label": "Lab results - Viral Load",
@@ -9100,7 +9252,15 @@
             "readonly": "false"
           }
         ]
-      }
+      },
+      "behaviours": [
+        {
+          "intent": "*",
+          "hide": {
+            "hideWhenExpression": "viralLabResultsToggle == '488b58ff-64f5-4f8a-8979-fa79940b1594'"
+          }
+        }
+      ]
     }
   ],
   "availableIntents": [
