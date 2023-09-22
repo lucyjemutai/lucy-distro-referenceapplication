@@ -2,21 +2,10 @@
   "@openmrs/esm-patient-chart-app": {
     "extensionSlots": {
       "patient-chart-dashboard-slot": {
-        "remove": [
-          "test-results-summary-dashboard",
-          "conditions-summary-dashboard",
-          "results-summary-dashboard",
-          "programs-summary-dashboard",
-          "allergies-summary-dashboard",
-          "attachments-results-summary-dashboard",
-          "drug-orders-summary-dashboard"
-        ]
+        "remove": []
       },
       "action-menu-chart-items-slot": {
-        "remove": [
-          "visit-note-nav-button",
-          "clinical-form-action-menu"
-        ]
+        "remove": []
       }
     },
     "notesConceptUuids": ["161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "437d1e25-e7ab-481c-aabc-01f21c6cdef1"],
@@ -27,13 +16,7 @@
   "@openmrs/esm-patient-banner-app": {
     "extensionSlots": {
       "patient-actions-slot": {
-        "remove": [
-          "add-patient-to-patient-list-button",
-          "start-visit-button",
-          "stop-visit-button",
-          "cancel-visit-button",
-          "add-past-visit-button"
-        ]
+        "remove": []
       }
     }
   },
@@ -54,9 +37,7 @@
   "@openmrs/esm-primary-navigation-app": {
     "extensionSlots": {
       "app-menu-slot": {
-        "remove": [
-          "dispensing-link"
-        ]
+        "remove": []
       }
     },
     "logo": {
