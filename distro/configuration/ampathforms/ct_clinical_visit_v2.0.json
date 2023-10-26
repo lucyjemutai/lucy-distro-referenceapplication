@@ -9103,11 +9103,24 @@
           "isExpanded": "true",
           "questions": [
             {
+              "label": "our test obsGroup",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "conceptMappings": []
+              },
+          "questions": [
+            {
               "label": "CD4 Lab Results",
               "type": "obs",
               "questionOptions": {
-                "rendering": "radio",
-                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "rendering": "toggle",
+                "concept": "9674e958-7269-11ee-b962-0242ac120002",
+                "toggleOptions": {
+                  "labelTrue": "Yes",
+                  "labelFalse": "No"
+                },
                 "conceptMappings": [
                   {
                     "type": "OCT",
@@ -9153,11 +9166,47 @@
               ]
             },
             {
+              "label": "Which form was filled?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "5ac76d80-726a-11ee-b962-0242ac120002",
+                "conceptMappings": []
+              },
+              "id": "labOrderToggle1",
+              "behaviours": [
+                {
+                  "intent": "*",
+                  "required": "false"
+                }
+              ]
+            }]
+            }
+          ]
+        },
+        {
+          "label": "Viral Lab Results",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Viral Lab Results",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "conceptMappings": []
+              },
+              "questions": [
+            {
               "label": "Viral Lab Results",
               "type": "obs",
               "questionOptions": {
-                "rendering": "radio",
-                "concept": "2dbf01ab-77f6-4b35-aa2c-46dfc14b0af0",
+                "rendering": "toggle",
+                "concept": "9674e958-7269-11ee-b962-0242ac120002",
+                "toggleOptions": {
+                  "labelTrue": "Yes",
+                  "labelFalse": "No"
+                },
                 "conceptMappings": [
                   {
                     "type": "OCT",
@@ -9201,6 +9250,23 @@
                   "required": "false"
                 }
               ]
+            },
+            {
+              "label": "Which form was filled?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "5ac76d80-726a-11ee-b962-0242ac120002",
+                "conceptMappings": []
+              },
+              "id": "labOrderToggle2",
+              "behaviours": [
+                {
+                  "intent": "*",
+                  "required": "false"
+                }
+              ]
+             }]
             }
           ]
         }
