@@ -9103,7 +9103,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "our test obsGroup",
+              "label": "CD4 Lab Results",
               "type": "obsGroup",
               "id": "cd4ResultObsGroup",
               "questionOptions": {
