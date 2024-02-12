@@ -59,7 +59,7 @@
     <coreapps.version>1.28.0</coreapps.version>
     <emrapi.version>1.32.0</emrapi.version>
     <event.version>2.10.0</event.version>
-    <providermanagement.version>2.13.0</providermanagement.version>
+    <!--<providermanagement.version>2.13.0</providermanagement.version>-->
     <uilibrary.version>2.0.7</uilibrary.version>
   </properties>
 
@@ -228,12 +228,12 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>org.openmrs.module</groupId>
       <artifactId>providermanagement-omod</artifactId>
       <version>${providermanagement.version}</version>
       <scope>provided</scope>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>org.openmrs.module</groupId>
