@@ -50,6 +50,13 @@
     <ordertemplates.version>1.0.2</ordertemplates.version>
     <patientflags.version>3.0.5</patientflags.version>
     <o3forms.version>2.2.0</o3forms.version>
+
+    <dataexchange.version>1.3.4</dataexchange.version>
+    <appframework.version>2.17.0</appframework.version>
+    <appui.version>1.15.0</appui.version>
+    <uicommons.version>2.23.0</uicommons.version>
+    <uiframework.version>3.23.0</uiframework.version>
+    <coreapps.version>1.28.0</coreapps.version>
   </properties>
 
   <dependencies>
@@ -198,6 +205,13 @@
       <groupId>org.openmrs.module</groupId>
       <artifactId>o3forms-omod</artifactId>
       <version>${o3forms.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openmrs.module</groupId>
+      <artifactId>dataexchange-omod</artifactId>
+      <version>${dataexchange.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
