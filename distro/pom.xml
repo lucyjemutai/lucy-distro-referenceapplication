@@ -57,6 +57,10 @@
     <uicommons.version>2.23.0</uicommons.version>
     <uiframework.version>3.23.0</uiframework.version>
     <coreapps.version>1.28.0</coreapps.version>
+    <emrapi.version>1.32.0</emrapi.version>
+    <event.version>2.10.0</event.version>
+    <providermanagement.version>2.13.0</providermanagement.version>
+    <uilibrary.version>2.0.7</uilibrary.version>
   </properties>
 
   <dependencies>
