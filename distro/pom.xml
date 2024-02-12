@@ -56,7 +56,7 @@
     <appui.version>1.15.0</appui.version>
     <uicommons.version>2.23.0</uicommons.version>
     <uiframework.version>3.23.0</uiframework.version>
-    <coreapps.version>1.28.0</coreapps.version>
+    <coreapps.version>1.31.0</coreapps.version>
     <emrapi.version>1.32.0</emrapi.version>
     <event.version>2.10.0</event.version>
     <providermanagement.version>2.13.0</providermanagement.version>
