@@ -30,7 +30,7 @@
     <addresshierarchy.version>2.17.0</addresshierarchy.version>
     <idgen.version>4.10.0</idgen.version>
     <legacyui.version>1.16.0</legacyui.version>
-    <metadatamapping.version>1.6.0</metadatamapping.version>
+    <metadatamapping.version>1.7.0-SNAPSHOT</metadatamapping.version>
     <metadatasharing.version>1.9.0</metadatasharing.version>
     <openconceptlab.version>2.1.0</openconceptlab.version>
     <!-- this is request for the OCL UI -->
@@ -38,8 +38,8 @@
     <attachments.version>3.1.0</attachments.version>
 
     <queue.version>2.2.1</queue.version>
-    <appointments.version>2.0.0-20231101.130425-7</appointments.version>
-    <teleconsultation.version>2.0.0-20230831.113926-1</teleconsultation.version>
+    <!--<appointments.version>2.0.0-20231101.130425-7</appointments.version>
+    <teleconsultation.version>2.0.0-20230831.113926-1</teleconsultation.version>-->
     <cohort.version>3.6.0</cohort.version>
     <reporting.version>1.25.0</reporting.version>
     <reportingrest.version>1.14.0</reportingrest.version>
@@ -59,7 +59,7 @@
     <!--<coreapps.version>1.28.0</coreapps.version>-->
     <emrapi.version>1.32.0</emrapi.version>
     <event.version>2.10.0</event.version>
-    <providermanagement.version>2.14.0</providermanagement.version>
+    <providermanagement.version>2.13.0</providermanagement.version>
     <uilibrary.version>2.0.7</uilibrary.version>
   </properties>
 
@@ -145,7 +145,7 @@
       <version>${queue.version}</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!--<dependency>
       <groupId>org.bahmni.module</groupId>
       <artifactId>appointments-omod</artifactId>
       <version>${appointments.version}</version>
@@ -156,7 +156,7 @@
       <artifactId>teleconsultation-omod</artifactId>
       <version>${teleconsultation.version}</version>
       <scope>provided</scope>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>org.openmrs.module</groupId>
       <artifactId>cohort-omod</artifactId>
