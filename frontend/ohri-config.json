@@ -62,5 +62,8 @@
       "infantPostnatal": "af1f1b24-d2e8-4282-b308-0bf79b365584",
       "motherPostnatal": "269bcc7f-04f8-4ddc-883d-7a3a0d569aad"
     }
+  },
+  "@openmrs/esm-billing-app": {
+    "defaultCurrency":"UGX"
   }
 }
