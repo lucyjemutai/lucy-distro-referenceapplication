@@ -98,8 +98,8 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HISTAC_HOST }}
-          username: ${{ secrets.HISTAC_USERNAME }}
-          key: ${{ secrets.OHRI_SSH_PRIVATE_KEY }}
-          port: 3222
+          host: ${{ secrets.HISTAC_DEV_STAGING_HOST }}
+          username: ${{ secrets.HISTAC_DEV_STAGING_USERNAME }}
+          key: ${{ secrets.HISTAC_DEV_STAGING_KEY }}
+          port: ${{ secrets.HISTAC_DEV_STAGING_PORT }}
           script: cd /opt && docker compose -f docker-compose-openmrs-referenceapplication.yml stop && docker compose -f docker-compose-openmrs-referenceapplication.yml pull && docker compose -f docker-compose-openmrs-referenceapplication.yml up -d
