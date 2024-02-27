@@ -85,3 +85,21 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ohri-dev-staging-backend-refapp:next,${{ secrets.DOCKERHUB_USERNAME }}/ohri-dev-staging-backend-refapp:ci_${{ github.run_number }}
           cache-from: type=inline,ref=user/app:buildcache
           cache-to: type=inline,ref=user/app:buildcache,mode=max
+
+  docker_refapp_staging_deploy:
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - docker_staging_frontend
+      - docker_staging_backend
+    if: needs.docker_staging_frontend.result == 'success' || needs.docker_staging_backend.result == 'success'
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HISTAC_HOST }}
+          username: ${{ secrets.HISTAC_USERNAME }}
+          key: ${{ secrets.OHRI_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.3222 }}
+          script: cd /opt && docker compose -f docker-compose-openmrs-referenceapplication.yml stop && docker compose -f docker-compose-openmrs-referenceapplication.yml pull && docker compose -f docker-compose-openmrs-referenceapplication.yml up -d
