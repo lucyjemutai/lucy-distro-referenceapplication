@@ -101,5 +101,5 @@ jobs:
           host: ${{ secrets.HISTAC_HOST }}
           username: ${{ secrets.HISTAC_USERNAME }}
           key: ${{ secrets.OHRI_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.3222 }}
+          port: 3222
           script: cd /opt && docker compose -f docker-compose-openmrs-referenceapplication.yml stop && docker compose -f docker-compose-openmrs-referenceapplication.yml pull && docker compose -f docker-compose-openmrs-referenceapplication.yml up -d
