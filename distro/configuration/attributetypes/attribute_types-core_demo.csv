@@ -1,3 +1,9 @@
 Uuid,Void/Retire,Entity name,Name,Description,Min occurs,Max occurs,Datatype classname,Datatype config,Preferred handler classname,Handler config,_order:1000
 57ea0cbb-064f-4d09-8cf4-e8228700491c,,Visit,Punctuality,,0,1,org.openmrs.customdatatype.datatype.ConceptDatatype,d81d4698-e78c-420d-aac5-cb1f606fb32e,,,
-aac48226-d143-4274-80e0-264db4e368ee,,Visit,Insurance Policy Number,,0,1,org.openmrs.customdatatype.datatype.FreeTextDatatype,,,,
+aac48226-d143-4274-80e0-264db4e368ee,,Visit,Insurance Scheme,The insurance scheme the patient is using to settle payment for services,0,1,org.openmrs.customdatatype.datatype.FreeTextDatatype,,,,
+8553afa0-bdb9-4d3c-8a98-05fa9350aa85,,Visit,Payment Method,The payment method used by the patient to settle payment,0,1,org.openmrs.customdatatype.datatype.FreeTextDatatype,,,,
+fbc0702d-b4c9-4968-be63-af8ad3ad6239,,Visit,Patient Type,To indicate whether the patient is paying for a service,0,1,org.openmrs.customdatatype.datatype.FreeTextDatatype,,,,
+3a988e33-a6c0-4b76-b924-01abb998944b,,Visit,Policy Number,The insurance policy number or member number,0,1,org.openmrs.customdatatype.datatype.FreeTextDatatype,,,,
+
+
+
