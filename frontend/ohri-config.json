@@ -1,5 +1,8 @@
 {
   "@openmrs/esm-billing-app": {
     "defaultCurrency":"UGX"
+  },
+  "@openmrs/esm-patient-chart-app": {
+    "showExtraVisitAttributesSlot": true
   }
 }
