@@ -2209,10 +2209,7 @@
                         "label": "Final diagnosis"
                       }
                     ]
-                  },
-                  "validators": [
-                    {}
-                  ]
+                  }
                 },
                 {
                   "label": "Diagnosis order",
@@ -2462,7 +2459,7 @@
               "required": false,
               "id": "referralFor",
               "questionOptions": {
-                "rendering": "multiCheckbox",
+                "rendering": "checkbox",
                 "concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "conceptMappings": [
                   {
