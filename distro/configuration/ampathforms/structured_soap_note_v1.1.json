@@ -2210,8 +2210,7 @@
                       }
                     ]
                   },
-                  "validators": [
-                  ]
+                  "validators": []
                 },
                 {
                   "label": "Diagnosis order",
@@ -2436,19 +2435,19 @@
           "label": "Treatment/Management Plan",
           "isExpanded": "true",
           "questions": [
-              {
-                "label": "Order Basket Launcher (place holder)",
-                "required": false,
-                "id": "orderBasketDrugWorkspaceLauncher",
-                "questionOptions": {
-                  "rendering": "workspace-launcher",
-                  "buttonLabel": "Add Drug",
-                  "workspaceName": "add-drug-orders"
-                },
-                "hide": {
-                  "hideWhenExpression": ""
-                }
+            {
+              "label": "Order Basket Launcher (place holder)",
+              "required": false,
+              "id": "orderBasketDrugWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add Drug",
+                "workspaceName": "add-drug-orders"
+              },
+              "hide": {
+                "hideWhenExpression": ""
               }
+            }
           ]
         },
         {
