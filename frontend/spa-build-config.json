@@ -38,7 +38,7 @@
     "@openmrs/esm-stock-management-app": "next",
     "@ohri/openmrs-esm-ohri-core-app": "next",
     "@ohri/openmrs-esm-ohri-covid-app": "next",
-    "@ohri/openmrs-esm-ohri-pmtct": "next",
+    "@ohri/openmrs-esm-ohri-pmtct-app": "next",
     "@ohri/openmrs-esm-ohri-tb-app": "next",
     "@ohri/openmrs-esm-ohri-cervical-cancer-app": "next",
     "@ohri/openmrs-esm-ohri-form-render-app": "next",
