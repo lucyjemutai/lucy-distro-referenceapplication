@@ -4,5 +4,9 @@
   },
   "@openmrs/esm-patient-chart-app": {
     "showExtraVisitAttributesSlot": true
+  },
+  "@openmrs/esm-stock-management-app": {
+    "stockSourceTypeUUID": "8e353f85-14a5-4c90-8573-19ebd848d67d",
+    "stockItemCategoryUUID": "fff03ad5-ba60-4d4e-81ca-f3db827f863e"
   }
 }
