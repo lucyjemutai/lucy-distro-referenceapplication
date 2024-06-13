@@ -6,7 +6,12 @@
     "showExtraVisitAttributesSlot": true
   },
   "@openmrs/esm-stock-management-app": {
+    "printItemCost": true,
+    "printBalanceOnHand": true,
+    "packagingUnitsUUID": "bab9120b-5bac-4780-bd46-13ad0adf2af8",
+    "stockAdjustmentReasonUUID": "47f0825e-8648-47c2-b847-d3197ed6bb72",
     "stockSourceTypeUUID": "8e353f85-14a5-4c90-8573-19ebd848d67d",
+    "dispensingUnitsUUID": "162402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     "stockItemCategoryUUID": "fff03ad5-ba60-4d4e-81ca-f3db827f863e"
   }
 }
