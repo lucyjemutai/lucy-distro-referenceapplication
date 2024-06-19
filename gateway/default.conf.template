@@ -13,6 +13,10 @@ upstream backend {
   server backend:8080 max_fails=0;
 }
 
+upstream standard-json-schemas {
+  server host.docker.internal:5151;
+}
+
 server {
   listen       80;
 
@@ -76,4 +80,8 @@ server {
   location = / {
     return 301 /openmrs/spa/;
   }
+
+  location /standard-json-schemas {
+      proxy_pass http://standard-json-schemas;
+    }
 }
