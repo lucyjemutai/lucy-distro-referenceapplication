@@ -1,9 +1,9 @@
 {
-  "name": "Structured Clinical Encounter Form",
+  "name": "Structured SOAP note",
   "description": "A form used to collect clinical information in a structured form",
   "version": "1.1",
   "published": true,
-  "uuid": "",
+  "uuid": "32f9bf88-f337-4995-9c37-6e639cc778f8",
   "retired": false,
   "encounter": "Consultation",
   "pages": [
@@ -11,46 +11,63 @@
       "label": "Visit Details",
       "sections": [
         {
-          "label": "Encounter Details",
-          "isExpanded": "true",
+          "label": "Visit Particulars",
+          "isExpanded": true,
           "questions": [
             {
-              "label": "Visit date:",
-              "type": "encounterDatetime",
-              "required": "true",
-              "id": "encDate",
+              "value": [
+                "**This form is used to**:Document a structured clinical consultation"
+              ],
               "questionOptions": {
-                "rendering": "date"
+                "rendering": "markdown"
               },
+              "id": "heading"
+            },
+            {
+              "label": "Encounter & Datetime",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "datetime"
+              },
+              "required": "true",
+              "default": "",
+              "id": "encDate",
               "validators": [
                 {
-                  "type": "date",
-                  "allowFutureDates": "false"
+                  "type": "date"
                 }
-              ]
+              ],
+              "questionInfo": "Date the encounter took place"
             },
             {
-              "label": "Provider:",
               "type": "encounterProvider",
+              "label": "Encounter Provider:",
+              "id": "provider",
+              "required": "true",
+              "default": "",
               "questionOptions": {
                 "rendering": "ui-select-extended"
-              },
-              "id": "encProvider "
+              }
             },
             {
-              "label": "Location:",
-              "type": "encounterLocation",
+              "type": "encounterRole",
+              "label": "Role:",
+              "id": "role",
+              "required": "false",
+              "default": "",
               "questionOptions": {
                 "rendering": "ui-select-extended"
-              },
-              "id": "encLocation"
-            }
-          ]
-        },
-        {
-          "label": "Patient Details",
-          "isExpanded": "true",
-          "questions": [
+              }
+            },
+            {
+              "type": "encounterLocation",
+              "label": "Encounter Location",
+              "id": "location",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              }
+            },
             {
               "label": "Visit Type?",
               "type": "obs",
@@ -417,17 +434,6 @@
                   }
                 },
                 {
-                  "label": "Duration (Days)",
-                  "type": "obs",
-                  "id": "complaintDuration",
-                  "questionOptions": {
-                    "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number",
-                    "min": "0"
-                  },
-                  "validators": []
-                },
-                {
                   "label": "Onset Date",
                   "type": "obs",
                   "id": "complaintsOnset",
@@ -441,6 +447,20 @@
                       "allowFutureDates": "false"
                     }
                   ]
+                },
+                {
+                  "label": "Duration (Days)",
+                  "type": "obs",
+                  "id": "complaintDuration",
+                  "questionOptions": {
+                    "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0",
+                    "calculate": {
+                      "calculateExpression": "calcTimeDifference(useFieldValue('complaintsOnset'), 'd')"
+                    }
+                  },
+                  "validators": []
                 }
               ]
             },
@@ -479,78 +499,19 @@
           ]
         },
         {
-          "label": "Menstrual History",
+          "label": "Allergies & Adverse Drug Reactions ",
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Last Menstrual Period",
-              "type": "obs",
-              "id": "lmp",
+              "label": "Allergies",
+              "required": false,
+              "id": "allergiesWorkspaceLauncher",
               "questionOptions": {
-                "rendering": "date",
-                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": []
-              },
-              "hide": {
-                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49)",
-                "validators": [
-                  {
-                    "type": "date",
-                    "allowFutureDates": "false"
-                  }
-                ]
+                "rendering": "workspace-launcher",
+                "buttonLabel": "+ Allergies",
+                "workspaceName": "patient-allergy-form-workspace"
               }
             },
-            {
-              "label": "Is client pregnant?",
-              "type": "obs",
-              "id": "pregnancy",
-              "questionOptions": {
-                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  },
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49)"
-              }
-            },
-            {
-              "label": "Expected Date of Delivery (EDD)",
-              "type": "obs",
-              "id": "edd",
-              "questionOptions": {
-                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
-              },
-              "hide": {
-                "hideWhenExpression": "sex !== 'F' && (age < 10 || age > 49) || pregnancy !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA '"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "label": "Adverse Drug Reactions",
-          "isExpanded": "true",
-          "questions": [
             {
               "label": "Patient reports adverse drug reaction(s)? ",
               "type": "obs",
@@ -576,7 +537,8 @@
               },
               "hide": {
                 "hideWhenExpression": ""
-              }
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Adverse drug reaction(s)",
@@ -596,221 +558,7 @@
                   "id": "adrMed",
                   "questionOptions": {
                     "concept": "1193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Abacavir"
-                      },
-                      {
-                        "concept": "162298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "ACE inhibitors"
-                      },
-                      {
-                        "concept": "70878AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Allopurinol"
-                      },
-                      {
-                        "concept": "155060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Aminoglycosides"
-                      },
-                      {
-                        "concept": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Amoxicillin"
-                      },
-                      {
-                        "concept": "162299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "ARBs (angiotensin II receptor blockers)"
-                      },
-                      {
-                        "concept": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Aspirin"
-                      },
-                      {
-                        "concept": "71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Atazanavir"
-                      },
-                      {
-                        "concept": "71665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Atorvastatin"
-                      },
-                      {
-                        "concept": "72822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Carbamazepine"
-                      },
-                      {
-                        "concept": "162301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cephalosporins"
-                      },
-                      {
-                        "concept": "73300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chloroquine"
-                      },
-                      {
-                        "concept": "73449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ciprofloxacin"
-                      },
-                      {
-                        "concept": "73461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Citalopram"
-                      },
-                      {
-                        "concept": "73602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Clopidogrel"
-                      },
-                      {
-                        "concept": "73667AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Codeine"
-                      },
-                      {
-                        "concept": "74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Didanosine"
-                      },
-                      {
-                        "concept": "74860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Digoxin"
-                      },
-                      {
-                        "concept": "75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Efavirenz"
-                      },
-                      {
-                        "concept": "162302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Erythromycins"
-                      },
-                      {
-                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ethambutol"
-                      },
-                      {
-                        "concept": "76552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Fluoxetine"
-                      },
-                      {
-                        "concept": "76734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Furosemide"
-                      },
-                      {
-                        "concept": "77164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Griseofulvin"
-                      },
-                      {
-                        "concept": "162305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heparins"
-                      },
-                      {
-                        "concept": "77675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hydralazine"
-                      },
-                      {
-                        "concept": "78280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Isoniazid"
-                      },
-                      {
-                        "concept": "78809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Levothyroxine"
-                      },
-                      {
-                        "concept": "78945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Lisinopril"
-                      },
-                      {
-                        "concept": "794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Lopinavir/ritonavir"
-                      },
-                      {
-                        "concept": "79651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Metformin"
-                      },
-                      {
-                        "concept": "79764AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Metoprolol"
-                      },
-                      {
-                        "concept": "80106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Morphine"
-                      },
-                      {
-                        "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Nevirapine"
-                      },
-                      {
-                        "concept": "80696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Nitrofurans"
-                      },
-                      {
-                        "concept": "162306AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Non-steroidal anti-inflammatory drugs"
-                      },
-                      {
-                        "concept": "81041AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Omeprazole"
-                      },
-                      {
-                        "concept": "81723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Penicillamine"
-                      },
-                      {
-                        "concept": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Penicillin"
-                      },
-                      {
-                        "concept": "81959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Phenolphthaleins"
-                      },
-                      {
-                        "concept": "82023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Phenytoin"
-                      },
-                      {
-                        "concept": "82453AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Prednisone"
-                      },
-                      {
-                        "concept": "82559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Procainamide"
-                      },
-                      {
-                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Pyrazinamide"
-                      },
-                      {
-                        "concept": "83018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Quinidine"
-                      },
-                      {
-                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Rifampin"
-                      },
-                      {
-                        "concept": "162307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Statins"
-                      },
-                      {
-                        "concept": "84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Stavudine"
-                      },
-                      {
-                        "concept": "162170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Sulfonamides"
-                      },
-                      {
-                        "concept": "84796AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Tenofovir"
-                      },
-                      {
-                        "concept": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Tetracycline"
-                      },
-                      {
-                        "concept": "86415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Warfarin"
-                      },
-                      {
-                        "concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Zidovudine"
-                      }
-                    ]
+                    "rendering": "drug"
                   }
                 },
                 {
@@ -1036,9 +784,484 @@
           ]
         },
         {
+          "label": "Sexual History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "HIV Status",
+              "type": "obs",
+              "required": false,
+              "id": "hivStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "PIH",
+                    "value": "3753"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "3BT",
+                    "value": "10042719"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "278977008"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "ICPC2",
+                    "value": "B90"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "(Known) HIV positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 3"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('159576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('159576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "Months since HIV test was done",
+              "type": "obs",
+              "required": false,
+              "id": "hivTest",
+              "questionOptions": {
+                "rendering": "number",
+                "min": "0",
+                "max": "200",
+                "concept": "163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "163191"
+                  }
+                ]
+              },
+              "validators": [],
+              "alert": {
+                "alertWhenExpression": "myValue > 12",
+                "message": "Client may be eligible for a HIV test if there are risk factors"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty (hivStatus) || hivStatus !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of HIV Diagnosis",
+              "type": "obs",
+              "required": false,
+              "id": "hivDxDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "160554"
+                  }
+                ]
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                  "message": "Cannot be after encounter date"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty (hivStatus) || hivStatus !=='138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "Sex with someone of unknown HIV status in the last 6 months?",
+              "type": "obs",
+              "required": false,
+              "id": "sexPartner",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "166505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "166505"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "KenyaEMR",
+                    "value": "165027"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED CT",
+                    "value": "228466005"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "160573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Currently not sexually active"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 14"
+              }
+            },
+            {
+              "label": "Sex without a condom",
+              "type": "obs",
+              "required": false,
+              "id": "sexWithoutCondom",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "166658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED CT",
+                    "value": "2314005"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "166658"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "KenyaEMR",
+                    "value": "165097"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(sexPartner) || sexPartner !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 14"
+              }
+            },
+            {
+              "label": "Recent history of a Sexually Transmitted Infection",
+              "type": "obs",
+              "required": false,
+              "id": "recentSti",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0fb41bec-4847-4d8d-afba-1116991b4f71",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(sexPartner) || sexPartner !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 14"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Reproductive History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Last Menstrual Period",
+              "type": "obs",
+              "id": "lmp",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": []
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49)"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                  "message": "Cannot be after the encounter date"
+                }
+              ]
+            },
+            {
+              "label": "Is client pregnant?",
+              "type": "obs",
+              "id": "pregnancy",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || age < 14 || age > 49"
+              }
+            },
+            {
+              "label": "Expected Date of Delivery (EDD)",
+              "type": "obs",
+              "id": "edd",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "calcEDD('lmp')"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' && (age < 14 || age > 49) || pregnancy !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                }
+              ]
+            },
+            {
+              "label": "Wants (more) children in the near future",
+              "type": "obs",
+              "required": false,
+              "id": "rHxPgIntention",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancy) || sex !== 'F' && (age < 14 || age > 49) || pregnancy === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "Family Planning Status:",
+              "type": "obs",
+              "id": "fPlanning",
+              "questionOptions": {
+                "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On Family Planning"
+                  },
+                  {
+                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not using Family Planning"
+                  },
+                  {
+                    "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wants Family Planning"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancy) || sex !== 'F' && (age < 14 || age > 49) || pregnancy === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "Current/Desired Family Planning method(s)",
+              "required": false,
+              "type": "obs",
+              "id": "fpMethod",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diaphram/Cervical Cap"
+                  },
+                  {
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency contraceptive pills"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fertility Awareness"
+                  },
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Injectible"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrauterine Device"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational Amenorhea Method"
+                  },
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral Contraceptives Pills"
+                  },
+                  {
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tubal Ligation"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy(Partner)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "!arrayContains(['965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], fPlanning) || (age < 14 || age > 49) || sex !== 'F'"
+              }
+            },
+            {
+              "label": "Current/Desired Family Planning method(s)",
+              "required": false,
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "!arrayContains(['965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], fPlanning) || (age < 14 || age > 49) || sex !== 'M'"
+              },
+              "id": "MalefpMethod"
+            }
+          ]
+        },
+        {
           "label": "Social History",
           "isExpanded": "true",
           "questions": [
+            {
+              "label": "History of Substance Use (Alcohol, Tobacco, Drugs)",
+              "type": "obs",
+              "id": "substanceUse",
+              "questionOptions": {
+                "concept": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Never"
+                  },
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Current/Past use"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 10 "
+              }
+            },
             {
               "label": "Do you smoke cigarattes",
               "type": "obs",
@@ -1067,8 +1290,9 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 10 "
-              }
+                "hideWhenExpression": "isEmpty(substanceUse) || substanceUse !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('163201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('163201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Number of years smoked",
@@ -1082,7 +1306,8 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(smokingStatus) || smokingStatus !== '152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && smokingStatus !== '152807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10 "
-              }
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Number of cigarette per day",
@@ -1096,7 +1321,8 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(smokingStatus) || smokingStatus !== '152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && smokingStatus !== '152807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ||age < 10 "
-              }
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('1546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('1546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Alcohol use",
@@ -1121,8 +1347,9 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 10 "
-              }
+                "hideWhenExpression": "isEmpty(substanceUse) || substanceUse !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Duration in Years",
@@ -1139,30 +1366,90 @@
               }
             },
             {
-              "label": "History of Substance Use",
+              "label": "Substances abused",
               "type": "obs",
-              "id": "substanceUse",
+              "required": false,
+              "id": "substanceAbuse",
               "questionOptions": {
-                "concept": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
+                "rendering": "multiCheckbox",
+                "concept": "112603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "IMO ProblemIT",
+                    "value": "27129"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "AMPATH",
+                    "value": "6259"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "66214007"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "ICD-10-WHO",
+                    "value": "F19.1"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "ANCDAK",
+                    "value": "ANC.B6.DE47"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "IMO ProblemIT",
+                    "value": "31005483"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "112603"
+                  }
+                ],
                 "answers": [
                   {
-                    "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Never"
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
                   },
                   {
-                    "concept": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Currently"
+                    "concept": "121249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Barbiturate abuse"
                   },
                   {
-                    "concept": "159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "In the past"
+                    "concept": "146504AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cannabis Abuse"
+                  },
+                  {
+                    "concept": "144661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cocaine abuse"
+                  },
+                  {
+                    "concept": "116945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "inhalant abuse"
+                  },
+                  {
+                    "concept": "159779AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "khat abuse"
+                  },
+                  {
+                    "concept": "114751AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Narcotic abuse"
+                  },
+                  {
+                    "concept": "114750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Opioid abuse"
                   }
                 ]
               },
+              "validators": [],
               "hide": {
-                "hideWhenExpression": "age < 10 "
-              }
+                "hideWhenExpression": "isEmpty(substanceUse) || substanceUse !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('112603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('112603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "History of Recent Travel?",
@@ -1197,6 +1484,22 @@
               "validators": [],
               "hide": {
                 "hideWhenExpression": ""
+              }
+            }
+          ]
+        },
+        {
+          "label": "Immunization History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Immunizations",
+              "required": false,
+              "id": "ImmunizationsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "+ Immunizations",
+                "workspaceName": "immunization-form-workspace"
               }
             }
           ]
@@ -1813,7 +2116,7 @@
               "type": "obs",
               "id": "notesEnt",
               "questionOptions": {
-                "concept": " 163045AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "163045AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
               },
               "hide": {
@@ -2025,15 +2328,39 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Order Basket Launcher (place holder)",
+              "label": "Order Basket Launcher",
               "required": false,
               "id": "orderBasketLabWorkspaceLauncher",
               "questionOptions": {
                 "rendering": "workspace-launcher",
                 "buttonLabel": "Add Lab Orders",
-                "workspaceName": "add-lab-orders"
+                "workspaceName": "add-lab-order"
               },
               "hide": {}
+            },
+            {
+              "label": "Upload File or Image",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "file",
+                "concept": "1238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "type": "AMPATH",
+                    "value": "1238"
+                  },
+                  {
+                    "type": "SNOMED CT",
+                    "value": "CT: 312853008"
+                  },
+                  {
+                    "type": "CIEL",
+                    "value": "1238"
+                  }
+                ]
+              },
+              "id": "fileUpLoad",
+              "questionInfo": "Uploads a file or captures an image"
             }
           ]
         }
@@ -2063,125 +2390,7 @@
                   "id": "diagnosis",
                   "questionOptions": {
                     "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "149197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acquired immunodeficiency syndrome"
-                      },
-                      {
-                        "concept": "149923AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acute Alcoholic Liver Disease"
-                      },
-                      {
-                        "concept": "149745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acute Hepatitis"
-                      },
-                      {
-                        "concept": "149153AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Alcoholic Hepatitis"
-                      },
-                      {
-                        "concept": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Asthma"
-                      },
-                      {
-                        "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Kidney Disease"
-                      },
-                      {
-                        "concept": "145091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cirrhosis of Liver"
-                      },
-                      {
-                        "concept": "487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dementia, senile"
-                      },
-                      {
-                        "concept": "142451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic foot ulcer"
-                      },
-                      {
-                        "concept": "117351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic Hypoglycemia"
-                      },
-                      {
-                        "concept": "119441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic ketoacidosis"
-                      },
-                      {
-                        "concept": "155919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "diabetic peripheral neuropathy"
-                      },
-                      {
-                        "concept": "142429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic retinopathy"
-                      },
-                      {
-                        "concept": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Gestational diabetes"
-                      },
-                      {
-                        "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heart failure"
-                      },
-                      {
-                        "concept": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heartburn"
-                      },
-                      {
-                        "concept": "116986AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis"
-                      },
-                      {
-                        "concept": "123107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis A"
-                      },
-                      {
-                        "concept": "111759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis B"
-                      },
-                      {
-                        "concept": "138180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypertensive Retinopathy"
-                      },
-                      {
-                        "concept": "116608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ischemic Heart Disease"
-                      },
-                      {
-                        "concept": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Low back pain"
-                      },
-                      {
-                        "concept": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Malaria"
-                      },
-                      {
-                        "concept": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Pneumonia"
-                      },
-                      {
-                        "concept": "127679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Renal Retinopathy"
-                      },
-                      {
-                        "concept": "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Retinopathy"
-                      },
-                      {
-                        "concept": "113227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Rheumatic heart disease"
-                      },
-                      {
-                        "concept": "124443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Toxic hepatitis"
-                      },
-                      {
-                        "concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Tuberculosis"
-                      }
-                    ]
+                    "rendering": "problem"
                   }
                 },
                 {
@@ -2248,181 +2457,13 @@
             },
             {
               "label": "Problem List",
-              "type": "obsGroup",
-              "id": "ProblemList",
+              "required": false,
+              "id": "conditonsWorkspaceLauncher",
               "questionOptions": {
-                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "repeating"
-              },
-              "validators": [],
-              "hide": {},
-              "questions": [
-                {
-                  "label": "Problem",
-                  "type": "obs",
-                  "id": "problemAdded",
-                  "questionOptions": {
-                    "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "149197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acquired immunodeficiency syndrome"
-                      },
-                      {
-                        "concept": "149923AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acute Alcoholic Liver Disease"
-                      },
-                      {
-                        "concept": "149745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Acute Hepatitis"
-                      },
-                      {
-                        "concept": "149153AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Alcoholic Hepatitis"
-                      },
-                      {
-                        "concept": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Asthma"
-                      },
-                      {
-                        "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Kidney Disease"
-                      },
-                      {
-                        "concept": "145091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cirrhosis of Liver"
-                      },
-                      {
-                        "concept": "487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dementia, senile"
-                      },
-                      {
-                        "concept": "142451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic foot ulcer"
-                      },
-                      {
-                        "concept": "117351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic Hypoglycemia"
-                      },
-                      {
-                        "concept": "119441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic ketoacidosis"
-                      },
-                      {
-                        "concept": "155919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "diabetic peripheral neuropathy"
-                      },
-                      {
-                        "concept": "142429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetic retinopathy"
-                      },
-                      {
-                        "concept": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Gestational diabetes"
-                      },
-                      {
-                        "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heart failure"
-                      },
-                      {
-                        "concept": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heartburn"
-                      },
-                      {
-                        "concept": "116986AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis"
-                      },
-                      {
-                        "concept": "123107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis A"
-                      },
-                      {
-                        "concept": "111759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatitis B"
-                      },
-                      {
-                        "concept": "138180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypertensive Retinopathy"
-                      },
-                      {
-                        "concept": "116608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ischemic Heart Disease"
-                      },
-                      {
-                        "concept": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Low back pain"
-                      },
-                      {
-                        "concept": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Malaria"
-                      },
-                      {
-                        "concept": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Pneumonia"
-                      },
-                      {
-                        "concept": "127679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Renal Retinopathy"
-                      },
-                      {
-                        "concept": "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Retinopathy"
-                      },
-                      {
-                        "concept": "113227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Rheumatic heart disease"
-                      },
-                      {
-                        "concept": "124443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Toxic hepatitis"
-                      },
-                      {
-                        "concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Tuberculosis"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Onset Date",
-                  "type": "obs",
-                  "id": "onsetDate",
-                  "questionOptions": {
-                    "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "date"
-                  },
-                  "validators": [
-                    {
-                      "type": "date",
-                      "allowFutureDates": "false"
-                    }
-                  ]
-                },
-                {
-                  "label": "Status",
-                  "type": "obs",
-                  "id": "conditionStatus",
-                  "questionOptions": {
-                    "concept": "165908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "161636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Active"
-                      },
-                      {
-                        "concept": "164928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Inactive"
-                      },
-                      {
-                        "concept": "165870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Resolved"
-                      }
-                    ]
-                  }
-                }
-              ]
+                "rendering": "workspace-launcher",
+                "buttonLabel": "+ conditions",
+                "workspaceName": "conditions-form-workspace"
+              }
             }
           ]
         }
@@ -2436,13 +2477,13 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Order Basket Launcher (place holder)",
+              "label": "Order Basket Launcher",
               "required": false,
               "id": "orderBasketDrugWorkspaceLauncher",
               "questionOptions": {
                 "rendering": "workspace-launcher",
-                "buttonLabel": "Add Drug",
-                "workspaceName": "add-drug-orders"
+                "buttonLabel": "+ Orders",
+                "workspaceName": "order-basket"
               },
               "hide": {
                 "hideWhenExpression": ""
@@ -2658,33 +2699,14 @@
               "validators": []
             },
             {
-              "label": "Appointment Date",
-              "type": "obs",
+              "label": "Appointments",
               "required": false,
-              "id": "returnVisitDate",
+              "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
-                "rendering": "date",
-                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "CIEL",
-                    "value": "5096"
-                  },
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "AMPATH",
-                    "value": "5096"
-                  }
-                ],
-                "answers": []
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
               },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                }
-              ],
               "hide": {
                 "hideWhenExpression": "isEmpty (followUpNeeded) || followUpNeeded !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
@@ -2718,5 +2740,5 @@
       ]
     }
   ],
-  "encounterType": "cb0a65a7-0587-477e-89b9-cf2fd144f1d4"
+  "encounterType": "dd528487-82a5-4082-9c72-ed246bd49591"
 }
