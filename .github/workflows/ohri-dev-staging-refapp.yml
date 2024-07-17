@@ -1,4 +1,4 @@
-name: OHRI Namibia Staging with O3 Images
+name: OHRI refapp with O3 Images
 
 on:
   push:
