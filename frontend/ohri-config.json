@@ -13,5 +13,10 @@
     "stockSourceTypeUUID": "8e353f85-14a5-4c90-8573-19ebd848d67d",
     "dispensingUnitsUUID": "162402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     "stockItemCategoryUUID": "fff03ad5-ba60-4d4e-81ca-f3db827f863e"
+  },
+    "@ohri/openmrs-esm-ohri-pmtct-app": {
+    "formUuids": {
+      "infantPostnatalFormUuid": "0dd206d0-6744-3684-97fc-7be3079ce4b9"
+    }
   }
 }
