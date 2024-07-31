@@ -2,7 +2,8 @@ version: "3.7"
 
 services:
   gateway:
-    image: histacoohri/ohri-dev-proxy:next
+    image: openmrs/openmrs-reference-application-3-gateway:${TAG:-qa}
+    restart: "unless-stopped"
     depends_on:
       - frontend
       - backend
@@ -10,22 +11,22 @@ services:
       - "80:80"
 
   frontend:
-    image: histacoohri/ohri-dev-frontend:next
+    image: openmrs/openmrs-reference-application-3-frontend:${TAG:-qa}
+    restart: "unless-stopped"
     environment:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
-      SPA_CONFIG_URLS: /openmrs/spa/ohri-config.json
+      SPA_CONFIG_URLS:
+      SPA_DEFAULT_LOCALE:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
       timeout: 5s
     depends_on:
       - backend
-    # OHRI customizations
-    volumes:
-      - ./frontend/ohri-config.json:/usr/share/nginx/html/ohri-config.json
 
   backend:
-    image: histacoohri/ohri-dev-backend-2_6:next
+    image: openmrs/openmrs-reference-application-3-backend:${TAG:-qa}
+    restart: "unless-stopped"
     depends_on:
       - db
     environment:
@@ -45,9 +46,10 @@ services:
   # MariaDB
   db:
     image: mariadb:10.8.2
+    restart: "unless-stopped"
     command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
     healthcheck:
-      test: 'mysql --user=${OMRS_DB_USER:-openmrs} --password=${OMRS_DB_PASSWORD:-openmrs} --execute "SHOW DATABASES;"'
+      test: "mysql --user=${OMRS_DB_USER:-openmrs} --password=${OMRS_DB_PASSWORD:-openmrs} --execute \"SHOW DATABASES;\""
       interval: 3s
       timeout: 1s
       retries: 5
