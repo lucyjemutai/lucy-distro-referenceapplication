@@ -33,6 +33,9 @@
     "identifiers": {
       "preferredIdentifierSource": "8549f706-7e85-4c1d-9424-217d50a2988b"
     },
+    "formUuids": {
+      "infantPostnatalFormUuid": "0dd206d0-6744-3684-97fc-7be3079ce4b9"
+    },
     "encounterTypes": {
       "antenatal": "677d1a80-dbbe-4399-be34-aa7f54f11405",
       "laborAndDelivery": "6dc5308d-27c9-4d49-b16f-2c5e3c759757",
